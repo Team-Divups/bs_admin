@@ -1,0 +1,78 @@
+/* view page*/
+
+.cardHeaderImage{
+    height: 250px;
+    width : 100%;
+}
+
+.profileimg{
+    border-radius: 40%;
+    height: 80px;
+    width: 80px;
+}
+
+.category{
+    font-size: 16px;
+    color: grey;
+    font-family: 'Asap', sans-serif;
+    font-weight: 500;
+}
+
+.content{
+    padding:35px 10px 20px 10px;
+}
+
+.modebtn{
+    width:150px;
+    text-align: center;
+    border-radius:10px;
+    color:white;
+    padding:8px 15px 8px 15px;
+    background-color:gold;
+}
+
+
+.infodesc{
+    font-size: 14px;
+    color: grey;
+    font-family: 'Asap', sans-serif;
+    font-weight: 500;
+    padding-bottom: 30px;
+    padding-top: 10px;
+}
+
+.userimg{
+    border-radius: 40%;
+    height: 40px;
+    width: 40px;
+}
+
+.userinfo{
+    font-size: 14px;
+    font-family: 'Asap', sans-serif;
+    font-weight: 500;
+}
+
+.siteimg{
+    height: 140px;
+    width : 100%;
+    border-radius: 12px;
+}
+
+.siteinfo{
+    font-size: 14px;
+    font-family: 'Asap', sans-serif;
+    font-weight: 500;
+    color: grey;
+    padding-top: 10px;
+    padding-bottom: 25px;
+}
+
+.roleimg{
+    height: 130px;
+    width:50%;
+    border-radius: 40%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

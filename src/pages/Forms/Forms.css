@@ -1,0 +1,51 @@
+.title{
+    color: lightgray;
+    font-size: 20px;
+    text-align: center;
+}
+
+.top{
+    padding: 20px;
+    margin: 20px;
+}
+
+.bottom{
+    -webkit-box-shadow: 0px 0px 10px 3px rgba(0,0,0,0.5); 
+    box-shadow: 0px 0px 10px 3px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin: 20px;
+    display: flex;
+}
+
+.left{
+    flex: 1.5;
+    text-align: center;
+}
+
+.userImg{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 20%;
+}
+
+.right{
+    flex: 2.5;
+}
+
+.form{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 35px;
+    justify-content: flex-start;
+    width: 100%;
+} 
+
+.label{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 10px;
+}
+

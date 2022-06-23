@@ -1,0 +1,114 @@
+/*list subscriptions*/
+
+.dataTableTitle{
+    font-size: 20px;
+    font-weight: bolder;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    font-family: 'Mulish', sans-serif;
+}
+
+
+.cellImg{
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+.cellAction{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 35px;
+    cursor: pointer;
+}
+
+.viewButton{
+    color: rgb(14, 12, 110);
+}
+
+.editButton{
+    color: rgb(25, 86, 20);
+}
+
+.deleteButton{
+    color: rgb(255, 0, 0);
+}
+
+/* Forms*/
+.title{
+    color: lightgray;
+    font-size: 20px;
+    text-align: center;
+}
+
+.top{
+    padding: 20px;
+    margin: 20px;
+}
+
+.bottom{
+    -webkit-box-shadow: 0px 0px 10px 3px rgba(0,0,0,0.5); 
+    box-shadow: 0px 0px 10px 3px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin: 20px;
+    display: flex;
+    padding-top: 80px;
+}
+
+.left{
+    flex: 1.5;
+    text-align: center;
+}
+
+.userImg{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 20%;
+    margin-left: 25%;
+}
+
+.right{
+    flex: 2.5;
+    font-family:  'Asap', sans-serif;
+}
+
+.form{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 35px;
+    justify-content: flex-start;
+    width: 100%;
+} 
+
+.label{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 10px;
+    font-family:'Asap', sans-serif;;
+}
+
+.FormContainer{
+    padding: 10px 100px 10px 100px;
+}
+
+.formPage{
+    margin: 20px 250px 20px 250px;
+    padding-bottom: 25px;
+    padding-top:25px;
+    padding-left:35px;
+    background-color: white;
+}
+
+.formTitle{
+    font-family: 'Mulish', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+}
