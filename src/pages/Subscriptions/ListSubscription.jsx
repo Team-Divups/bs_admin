@@ -38,7 +38,10 @@ const ListSubscription = ()=>{
             dangerMode: true,
         }).then( (willDelete)=>{
             if(willDelete){
-                axios.delete(`http://localhost:3001/subscription/${id}`).then(
+                axios.put(`http://localhost:3001/subscription/deleteid`,{
+                    visibility : 0 ,
+                    id:id
+                }).then(
                     (response)=>{
                         swal({
                             title : 'Done !',
@@ -49,7 +52,7 @@ const ListSubscription = ()=>{
                         })
                         setSubData(subdata.filter((val)=>{
                             return(
-                              val.id !== id
+                              val.visibility === 1
                             )
                           }))
                     }
@@ -77,7 +80,9 @@ const ListSubscription = ()=>{
             dangerMode: true,
         }).then( (willDelete)=>{
             if(willDelete){
-                axios.delete("http://localhost:3001/subscription").then(
+                axios.put("http://localhost:3001/subscription/delete",{
+                    visibility:0
+                }).then(
                     (response)=>{
                         swal({
                             title : 'Done !',
@@ -86,6 +91,11 @@ const ListSubscription = ()=>{
                             timer : 2000,
                             button : false,
                         })
+                        setSubData(subdata.filter((val)=>{
+                            return(
+                              val.visibility === 1
+                            )
+                          }))
                     }
                 )
             } else {
@@ -117,7 +127,7 @@ const ListSubscription = ()=>{
                         <div className="editButton"><EditIcon fontSize='small'/></div>
                     </Link>
                     
-                    <div className="deleteButton"  ><DeleteIcon fontSize='small' onClick={()=>Delete(params.id)}/></div>
+                    <div className="deleteButton"  ><DeleteIcon fontSize='small' onClick={()=>Delete(params.row.id)}/></div>
                 </div>
             )
         }
@@ -155,7 +165,6 @@ const ListSubscription = ()=>{
                rows={subdata}
                pageSize={10}
                rowsPerPageOptions={[5]}
-               disableSelectionOnClick
                style={{marginTop:'30px',fontFamily:'Asap'}}
                getRowHeight={() => 'auto'}
                autoHeight

@@ -2,12 +2,12 @@ import { Button } from '@mui/material';
 //import user from '../../Assets/user.png';
 
 export const subColumns = [
-    { field: 'subId', headerName: 'SubId', width: 130 },
+   // { field: 'subId', headerName: 'SubId', width: 130 },
 
     {
       field: 'subscription',
       headerName: 'Subscription',
-      width: 240,
+      width: 270,
       renderCell: (params) => {
         return (
           <div>
@@ -20,7 +20,7 @@ export const subColumns = [
     {
         field: 'category',
         headerName: 'Category',
-        width: 180,
+        width: 220,
         renderCell: (params) => {
           return (
               <div>
@@ -44,7 +44,7 @@ export const subColumns = [
     {
         field: 'type',
         headerName: 'Type',
-        width: 160,
+        width: 170,
         renderCell: (params) => {
           return (
               <div>
@@ -64,7 +64,7 @@ export const subColumns = [
     {
         field: 'owner',
         headerName: 'Owned By',
-        width: 220,
+        width: 250,
     },
    
     {

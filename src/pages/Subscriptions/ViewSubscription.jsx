@@ -11,7 +11,8 @@ import '../viewpage.css';
 
 import { Edit, Facebook, Instagram, Language, LinkedIn } from '@mui/icons-material';
 import { GridListTile,GridList} from '@material-ui/core';
-
+import Delete from '@mui/icons-material/Delete';
+import swal from 'sweetalert';
 
 
 const ViewSubscription = ()=>{
@@ -28,14 +29,13 @@ const ViewSubscription = ()=>{
         axios.get(`http://localhost:3001/subscription/${subid}`).then(
           (response)=>{
               setSubData(response.data);
-              console.log(subData);
           })
       },[subid])
 
 
     //subscription users list
     useEffect( () =>{
-      axios.get(`http://localhost:3001/subscription`).then(
+      axios.get(`http://localhost:3001/subscription/susers/${subid}`).then(
         (response)=>{
             setSubUser(response.data);
         })
@@ -44,13 +44,15 @@ const ViewSubscription = ()=>{
 
      //subscription sites list
      useEffect( () =>{
-      axios.get(`http://localhost:3001/subscription`).then(
+      axios.get(`http://localhost:3001/subscription/subsites/${subid}`).then(
         (response)=>{
             setSiteData(response.data);
         })
     },[subid])
 
-  
+
+
+
   return (
     <>
         <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
@@ -72,29 +74,29 @@ const ViewSubscription = ()=>{
                     <CardContent>
 
                       <Grid container spacing={2} alignItems="center">
-                        <Grid item >
+                        <Grid item xs={1}>
                           <img src={sitesm} alt="profile" className='profileimg'/>
                         </Grid>
 
-                        <Grid item>
+                        <Grid item xs={9}>
                           <Box height="100%" mt={0.5} lineHeight={1}>
                             <Typography variant='h5' fontFamily='Mulish'><b>{val.name}</b></Typography>
                             <Typography className='category'>{val.category}</Typography>
                           </Box>
                         </Grid>
 
-                        <Grid item>
+                        <Grid item xs={2}>
                         
                             {val.type=== "Gold" ? (
-                              <div style={{paddingLeft:'650px'}}><span className='modebtn'>Gold</span></div>
+                              <div className='modebtn'>Gold</div>
                             ) : val.type=== "Platinum" ? (
-                              <div style={{paddingLeft:'500px'}}>
+                              <div >
                               <span style={{paddingRight:'10px'}}><span className='modebtn' style={{backgroundColor:'#E5E4E2'}}>Platinum</span></span>
                         
                               <span style={{backgroundColor:'#84fae4'}}  className='modebtn'>Contract</span>
                               </div>
                             ) : (
-                              <div style={{paddingLeft:'750px'}}><span className='modebtn' style={{backgroundColor:'silver'}}>Silver</span></div>
+                              <div className='modebtn' style={{backgroundColor:'silver'}}>Silver</div>
                             )}
                      
                         </Grid>
@@ -102,7 +104,7 @@ const ViewSubscription = ()=>{
 
                      
 
-                      <Grid container spacing={2} columnSpacing={8}>
+                      <Grid container spacing={2} columnSpacing={10}>
 
                         <Grid item xs={7} >
                           <Box className='content'>
@@ -110,7 +112,7 @@ const ViewSubscription = ()=>{
                             <Link to={`/subscriptions/edit/${val.id}`}>
                               <Edit sx={{fontSize:15}}/>
                             </Link></Typography>
-             
+
                             <Divider orientation='horizontal' style={{paddingTop:'15px',width:'75%'}}/>
 
                             <div className='infodesc'>
@@ -173,7 +175,7 @@ const ViewSubscription = ()=>{
                         {siteData.map((sdata,index)=>{
                         return(<>
                          <GridListTile>
-                         <Card sx={{ maxWidth: 360,paddingTop: 5,paddingRight: 9,}} >
+                         <Card sx={{ maxWidth: 360,paddingTop: 5,paddingRight: 9}} >
                             <CardMedia
                             component="img"
                             className= 'siteimg'
@@ -181,10 +183,10 @@ const ViewSubscription = ()=>{
                             alt="site"/>
 
                             <CardContent>
-                              <Typography fontFamily='Mulish'><b>{sdata.name}</b></Typography>
+                              <Typography fontFamily='Mulish'><b>{sdata.sitename}</b></Typography>
 
-                              <div className='siteinfo'>{sdata.description}</div>
-                              <a  href='https://www.facebook.com/hana.jiffry.16/' target='_blank'>
+                              <div className='siteinfo'>{sdata.sitedescription}</div>
+                              <a  href={sdata.webURL} target='_blank'>
                               <Button variant='outlined' style={{fontFamily:'Asap'}}>View Site</Button>
                               </a>
                             </CardContent>
