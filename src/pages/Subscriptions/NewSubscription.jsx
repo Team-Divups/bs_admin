@@ -19,7 +19,7 @@ import {
   RadioGroup,
   TextField,
 } from "@material-ui/core";
-import MuiPhoneNumber from 'material-ui-phone-number';
+//import MuiPhoneNumber from 'material-ui-phone-number';
 
 import swal from "sweetalert";
 
@@ -29,6 +29,7 @@ const initialValues = {
   type: "",
   owner: "",
   location: "",
+  appLogo:"",
   description: "",
   email: "",
   contactNo: "",
@@ -38,9 +39,9 @@ const initialValues = {
   Instagram: "",
 };
 
+
 const NewSubscription = () => {
   const [values, setValues] = useState(initialValues);
-  const [file, setFile] = useState();
   const [FormErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
 
@@ -54,6 +55,12 @@ const NewSubscription = () => {
       [name]: value,
     });
   };
+
+
+  //handle image
+  const handleImage = (e) => {
+    setValues({...values,appLogo:e.target.files[0]});
+  }
 
 
   //validation
@@ -95,7 +102,7 @@ const NewSubscription = () => {
   //submititng form
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Success");
+   
     setFormErrors(validate(values));
     setIsSubmit(true);
   };
@@ -115,7 +122,9 @@ const NewSubscription = () => {
   const AddSub = async () => {
     console.log("button");
     await axios
-      .post("http://localhost:3001/subscription/create", values)
+      .post("http://localhost:3001/subscription/create", values,{   
+        headers: { "Content-Type": "multipart/form-data" } 
+        })
       .then(() => {
         console.log("success");
         swal({
@@ -142,8 +151,8 @@ const NewSubscription = () => {
           <div className="left">
             <img
               src={
-                file
-                  ? URL.createObjectURL(file)
+                values.appLogo
+                  ? URL.createObjectURL(values.appLogo)
                   : "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
               }
               alt="profile"
@@ -240,9 +249,8 @@ const NewSubscription = () => {
                     <input
                       style={{ paddingTop: "15px", paddingBottom: "15px" }}
                       type="file"
-                      onChange={(e) => {
-                        setFile(e.target.files[0]);
-                      }}
+                      name="appLogo"
+                      onChange={handleImage}
                     />
                   </div>
                 </Grid>
