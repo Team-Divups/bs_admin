@@ -6,9 +6,9 @@
 }
 
 .profileimg{
-    border-radius: 40%;
-    height: 80px;
-    width: 80px;
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
 }
 
 .category{
@@ -76,4 +76,18 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+.logoimg{
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    margin-left: 75%;
+    margin-bottom: 10px;
+    margin-top: 8px;
+}
+
+.logoname{
+    text-align: center;
+    margin-bottom: 10px;
 }

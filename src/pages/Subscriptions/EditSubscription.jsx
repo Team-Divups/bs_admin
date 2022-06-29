@@ -17,15 +17,13 @@ import "../styles.css";
 import { MenuItem, Select, Divider } from "@mui/material";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import { useNavigate, useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import swal from "sweetalert";
-import { sub } from "date-fns";
 
 const EditSubscription = () => {
-  
   const history = useNavigate();
-  const {subid} = useParams();
+  const { subid } = useParams();
 
   const initialValues = {
     name: "",
@@ -33,6 +31,7 @@ const EditSubscription = () => {
     type: "",
     owner: "",
     location: "",
+    appLogo: "",
     description: "",
     email: "",
     contactNo: "",
@@ -40,24 +39,21 @@ const EditSubscription = () => {
     LinkedIn: "",
     facebook: "",
     Instagram: "",
-    id:subid,
+    id: subid,
   };
 
   const [values, setValues] = useState(initialValues);
-  const [file, setFile] = useState(null);
   const [FormErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
 
-
   //Subscription info
-  useEffect( () =>{
-    axios.get(`http://localhost:3001/subscription/${subid}`).then(
-      (response)=>{
-          setValues({...response.data[0]});
-      })
-      console.log(values.type);
-  },[subid])
-
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3001/subscription/${subid}`)
+      .then((response) => {
+        setValues({ ...response.data[0] });
+      });
+  }, [subid]);
 
   //updating values
   const handleChange = (e) => {
@@ -68,12 +64,16 @@ const EditSubscription = () => {
     });
   };
 
+  //handle image
+  const handleImage = (e) => {
+    setValues({...values,appLogo:e.target.files[0]});
+  }
+
 
   //validation
   const validate = (values) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    
 
     if (!values.name) {
       errors.name = "Name is required!";
@@ -92,38 +92,36 @@ const EditSubscription = () => {
     }
 
     if (!values.email) {
-        errors.email = "Email is required!";
+      errors.email = "Email is required!";
     } else if (!regex.test(values.email)) {
-        errors.email = "This is not a valid email format!";
+      errors.email = "This is not a valid email format!";
     }
 
     return errors;
   };
 
-
   //submititng form
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+
     setFormErrors(validate(values));
     setIsSubmit(true);
   };
 
-
   //Changing upon errors
   useEffect(() => {
-    
     if (Object.keys(FormErrors).length === 0 && isSubmit) {
       console.log("button works");
       EditSub();
     }
   }, [FormErrors]);
 
-
   //Add subscription
   const EditSub = async () => {
     await axios
-      .put("http://localhost:3001/subscription/edit",values)
+      .put("http://localhost:3001/subscription/edit", values, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
       .then(() => {
         console.log("success");
         swal({
@@ -136,13 +134,12 @@ const EditSubscription = () => {
       });
   };
 
-
   //disabling button
-  const enable =values.name && values.type && values.owner && values.email;
+  const enable = values.name && values.type && values.owner && values.email;
 
   //disabling options
-  const optionEnable = (values.type==="Platinum")
-  const optionEnable2 = (values.type==="Platinum" || values.type==='Gold')
+  const optionEnable = values.type === "Platinum";
+  const optionEnable2 = values.type === "Platinum" || values.type === "Gold";
 
   return (
     <>
@@ -153,8 +150,8 @@ const EditSubscription = () => {
           <div className="left">
             <img
               src={
-                file
-                  ? URL.createObjectURL(file)
+                values.appLogo
+                  ? `http://localhost:3001/${values.appLogo}`
                   : "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
               }
               alt="profile"
@@ -191,7 +188,6 @@ const EditSubscription = () => {
                     error={FormErrors.type}
                     helperText={FormErrors.type}
                   >
-                    
                     <FormControlLabel
                       value="Platinum"
                       control={<Radio color="success" />}
@@ -250,12 +246,12 @@ const EditSubscription = () => {
                     <FormLabel className="label">
                       Subscription Logo : <DriveFolderUploadIcon />
                     </FormLabel>
+
                     <input
                       style={{ paddingTop: "15px", paddingBottom: "15px" }}
                       type="file"
-                      onChange={(e) => {
-                        setFile(e.target.value);
-                      }}
+                      name="appLogo"
+                      onChange={handleImage}
                     />
                   </div>
                 </Grid>
@@ -272,7 +268,7 @@ const EditSubscription = () => {
                 Short Description about the subscription
               </FormLabel>
               <TextField
-                style={{ paddingBottom: "30px",paddingTop:'20px'}}
+                style={{ paddingBottom: "30px", paddingTop: "20px" }}
                 variant="outlined"
                 fullWidth
                 multiline
@@ -340,9 +336,7 @@ const EditSubscription = () => {
 
                   <div className="formTitle">Social Media</div>
 
-                  <FormLabel className="label">
-                    Website
-                  </FormLabel>
+                  <FormLabel className="label">Website</FormLabel>
                   <TextField
                     style={{ paddingBottom: "30px" }}
                     name="WebsiteURL"
@@ -352,9 +346,7 @@ const EditSubscription = () => {
                     helperText={FormErrors.WebsiteURL}
                   />
 
-                  <FormLabel  className="label">
-                    LinkedIn
-                  </FormLabel>
+                  <FormLabel className="label">LinkedIn</FormLabel>
                   <TextField
                     style={{ paddingBottom: "30px" }}
                     name="LinkedIn"
@@ -364,9 +356,7 @@ const EditSubscription = () => {
                     helperText={FormErrors.LinkedIn}
                   />
 
-                  <FormLabel className="label">
-                    FaceBook
-                  </FormLabel>
+                  <FormLabel className="label">FaceBook</FormLabel>
                   <TextField
                     style={{ paddingBottom: "30px" }}
                     name="facebook"
@@ -376,9 +366,7 @@ const EditSubscription = () => {
                     helperText={FormErrors.facebook}
                   />
 
-                  <FormLabel  className="label">
-                    Instagram
-                  </FormLabel>
+                  <FormLabel className="label">Instagram</FormLabel>
                   <TextField
                     style={{ paddingBottom: "30px" }}
                     name="Instagram"
@@ -413,8 +401,6 @@ const EditSubscription = () => {
                 </span>
               </div>
             </form>
-
-            
           </div>
         </div>
       </div>

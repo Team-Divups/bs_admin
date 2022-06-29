@@ -10,6 +10,7 @@ export { default as ListSubscription } from './Subscriptions/ListSubscription';
 export { default as ViewSubscription } from './Subscriptions/ViewSubscription';
 export { default as NewSubscription } from './Subscriptions/NewSubscription';
 export { default as EditSubscription } from './Subscriptions/EditSubscription';
+export { default as DeletedSubscriptions } from './Subscriptions/DeletedSubscriptions';
 
 //users module
 export { default as ListUser } from './Admins/ListUser';

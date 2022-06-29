@@ -56,18 +56,18 @@ const NewSubscription = () => {
     });
   };
 
-
   //handle image
   const handleImage = (e) => {
     setValues({...values,appLogo:e.target.files[0]});
   }
 
 
+
   //validation
   const validate = (values) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    
+    const telregex=/^[0-9]{10}$/;
 
     if (!values.name) {
       errors.name = "Name is required!";
@@ -93,6 +93,10 @@ const NewSubscription = () => {
         errors.email = "Email is required!";
     } else if (!regex.test(values.email)) {
         errors.email = "This is not a valid email format!";
+    }
+
+    if (!telregex.test(values.contactNo)) {
+      errors.contactNo = "Contact Number is invalid";
     }
 
     return errors;
@@ -152,8 +156,8 @@ const NewSubscription = () => {
             <img
               src={
                 values.appLogo
-                  ? URL.createObjectURL(values.appLogo)
-                  : "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
+                      ? URL.createObjectURL(values.appLogo)
+                      : "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
               }
               alt="profile"
               className="userImg"
@@ -318,7 +322,7 @@ const NewSubscription = () => {
                   <TextField
                     style={{ paddingBottom: "30px" }}
                     name="contactNo"
-                    inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+                    //inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                     type="text"
                     value={values.contactNo}
                     onChange={handleChange}
