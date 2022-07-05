@@ -45,6 +45,15 @@ const EditSubscription = () => {
   const [values, setValues] = useState(initialValues);
   const [FormErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const [subdata, setSubData] = useState([]);
+
+
+  //to get data when the application loads
+  useEffect(() => {
+    axios.get("http://localhost:3001/subscription").then((response) => {
+      setSubData(response.data);
+    });
+  }, []);
 
   //Subscription info
   useEffect(() => {
@@ -83,7 +92,11 @@ const EditSubscription = () => {
       errors.name = "Name cannot exceed more than 30 characters";
     }
 
-    
+    for (let i = 0; i <subdata.length; i++) {
+      if (subdata[i].name === values.name) {
+        errors.name='This Subscription name already exists';
+      }
+    }
 
     if (!values.type) {
       errors.type = "Subscribtion payment plan is required!";

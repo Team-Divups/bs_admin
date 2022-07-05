@@ -43,6 +43,15 @@ const NewSubscription = () => {
   const [values, setValues] = useState(initialValues);
   const [FormErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const [subdata, setSubData] = useState([]);
+
+
+  //to get data when the application loads
+  useEffect(() => {
+    axios.get("http://localhost:3001/subscription").then((response) => {
+      setSubData(response.data);
+    });
+  }, []);
 
   const history = useNavigate();
 
@@ -72,6 +81,12 @@ const NewSubscription = () => {
       errors.name = "Name must be more than 4 characters";
     } else if (values.name.length > 20) {
       errors.name = "Name cannot exceed more than 30 characters";
+    }
+
+    for (let i = 0; i <subdata.length; i++) {
+      if (subdata[i].name === values.name) {
+        errors.name='This Subscription name already exists';
+      }
     }
 
     if (!values.description.length > 500) {
