@@ -135,7 +135,7 @@ const EditSubscription = () => {
   const EditSub = async () => {
     await axios
       .put("http://localhost:3001/subscription/edit", values, {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: { "content-type": "multipart/form-data" },
       })
       .then(() => {
         console.log("success");
