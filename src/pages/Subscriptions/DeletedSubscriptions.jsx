@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 import { DataGrid } from "@mui/x-data-grid";
+import { Grid, TextField } from "@mui/material";
 
 import { deletedsubColumns } from "./DataSource";
-import Header from "../../components/Header";
 import "../styles.css";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -15,6 +15,7 @@ import { Restore } from "@mui/icons-material";
 
 const DeletedSubscriptions = () => {
   const [subdata, setSubData] = useState([]);
+  const [searchdata, setSearchdata] = useState("");
 
   //to get data when the application loads
   useEffect(() => {
@@ -23,6 +24,20 @@ const DeletedSubscriptions = () => {
       console.log(response.data);
     });
   }, []);
+
+  //search functionality
+  const handleChange = (e) => {
+    e.preventDefault();
+    setSearchdata(e.target.value.toLowerCase());
+
+    if (searchdata.length > 0) {
+      setSubData(
+        subdata.filter((val) => {
+          return val.name.toLowerCase().includes(searchdata);
+        })
+      );
+    }
+  };
 
   //Restore subscription
   const Restorage = (id) => {
@@ -93,7 +108,22 @@ const DeletedSubscriptions = () => {
   return (
     <>
       <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-        <Header category="Pages" title="Subscriptions History" />
+      
+        <Grid container spacing={2}>
+          <Grid item xs={8}>
+          <span className="dataTableTitle">Overview of Terminated Subscriptions</span>
+          </Grid>
+          <Grid item xs={4}>
+            <TextField
+              placeholder="search"
+              type="search"
+              onChange={handleChange}
+              value={searchdata}
+              fullWidth
+              size="small"
+            />
+          </Grid>
+        </Grid>
 
         <DataGrid
           columns={deletedsubColumns.concat(actionColumn)}

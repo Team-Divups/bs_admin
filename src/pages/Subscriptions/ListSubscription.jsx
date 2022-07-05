@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
-import { Grid, Button } from "@mui/material";
+import { Grid, Button, TextField } from "@mui/material";
 
 import Header from "../../components/Header";
 import { subColumns } from "./DataSource";
@@ -12,6 +12,7 @@ import "../styles.css";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+
 import {
   AcUnit,
   AddCircleRounded,
@@ -21,6 +22,7 @@ import {
 
 const ListSubscription = () => {
   const [subdata, setSubData] = useState([]);
+  const [searchdata, setSearchdata] = useState("");
 
   //to get data when the application loads
   useEffect(() => {
@@ -28,6 +30,20 @@ const ListSubscription = () => {
       setSubData(response.data);
     });
   }, []);
+
+  //search functionality
+  const handleChange = (e) => {
+    e.preventDefault();
+    setSearchdata(e.target.value.toLowerCase());
+
+    if (searchdata.length > 0) {
+      setSubData(
+        subdata.filter((val) => {
+          return val.name.toLowerCase().includes(searchdata);
+        })
+      );
+    }
+  };
 
   // Delete one subscription
   const Delete = (id) => {
@@ -191,25 +207,41 @@ const ListSubscription = () => {
         <Header category="Pages" title="Subscriptions" />
 
         <Grid container spacing={2}>
-          <Grid item xs={7}>
+          <Grid item xs={9}>
             <span className="dataTableTitle">Overview of Subscriptions</span>
           </Grid>
 
+          <Grid item xs={3}>
+            <TextField
+              placeholder="search"
+              type="search"
+              onChange={handleChange}
+              value={searchdata}
+              fullWidth
+              size="small"
+            />
+          </Grid>
+        </Grid><br/>
+
+        <Grid container spacing={2}>
+          <Grid item xs={7}>
+            <p></p>
+          </Grid>
+
           <Grid item xs={5}>
-            <span style={{ paddingLeft: "120px", paddingRight: "25px" }}>
+            <span style={{ paddingLeft: "100px" }}>
               <Link to="/subscriptions/bin">
                 <Button
                   size="small"
                   variant="contained"
-                  style={{ backgroundColor: "#84fae4" }}
+                  color="secondary"
                   endIcon={<DeleteSweepRounded />}
                 >
                   Recycle Bin
                 </Button>
               </Link>
             </span>
-
-            <span style={{ paddingRight: "25px" }}>
+            <span style={{ paddingLeft: "40px", paddingRight: "25px" }}>
               <Button
                 style={{ backgroundColor: "red" }}
                 size="small"

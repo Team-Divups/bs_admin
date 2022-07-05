@@ -83,6 +83,8 @@ const EditSubscription = () => {
       errors.name = "Name cannot exceed more than 30 characters";
     }
 
+    
+
     if (!values.type) {
       errors.type = "Subscribtion payment plan is required!";
     }

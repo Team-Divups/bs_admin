@@ -14,7 +14,13 @@ export const subColumns = [
     renderCell: (params) => {
       return (
         <div>
-          <b>{params.row.name}</b>
+          <b>{params.row.name}</b><br/>
+          <p style={{lineHeight:'2'}}>
+            Joined on :
+            <Moment format="YYYY/MM/DD" style={{ color: "gray" }}>
+              {params.row.created_at}
+            </Moment>
+          </p>
         </div>
       );
     },
@@ -112,8 +118,16 @@ export const subColumns = [
 
   {
     field: "owner",
-    headerName: "Owned By",
+    headerName: "Conatct Person",
     width: 250,
+    renderCell: (params) => {
+      return (
+        <div>
+          <b style={{lineHeight:'2.6'}}>{params.row.owner}</b>
+          <p style={{color:'gray'}}>{params.row.email}</p>
+        </div>
+      );
+    },
   },
 
   {
@@ -133,16 +147,8 @@ export const deletedsubColumns = [
     renderCell: (params) => {
       return (
         <div>
-          <img
-            src={
-              params.row.appLogo
-                ? `http://localhost:3001/${params.row.appLogo}`
-                : sitesm
-            }
-            alt="profile"
-            className="logoimg"
-          />
-          <b className="logoname">{params.row.name}</b>
+          <b style={{lineHeight:'1.8'}}>{params.row.name}</b>
+          <p style={{color:'gray'}}>{params.row.category}</p>
         </div>
       );
     },
@@ -155,9 +161,9 @@ export const deletedsubColumns = [
     renderCell: (params) => {
       return (
         <div>
-          <p>
+          <p style={{lineHeight:'2.4'}}>
             <b>Created on :</b>
-            <Moment format="YYYY/MM/DD" style={{ color: "gray" }}>
+            <Moment format="YYYY/MM/DD" style={{ color: "gray"}}>
               {params.row.created_at}
             </Moment>
           </p>
@@ -179,7 +185,7 @@ export const deletedsubColumns = [
     renderCell: (params) => {
       return (
         <div>
-          <p>
+          <p style={{lineHeight:'1.8'}}>
             <b>{params.row.owner}</b>
           </p>
           <p

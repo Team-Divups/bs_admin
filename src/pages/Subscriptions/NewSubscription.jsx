@@ -29,7 +29,7 @@ const initialValues = {
   type: "",
   owner: "",
   location: "",
-  appLogo:"",
+  appLogo: "",
   description: "",
   email: "",
   contactNo: "",
@@ -38,7 +38,6 @@ const initialValues = {
   facebook: "",
   Instagram: "",
 };
-
 
 const NewSubscription = () => {
   const [values, setValues] = useState(initialValues);
@@ -58,16 +57,14 @@ const NewSubscription = () => {
 
   //handle image
   const handleImage = (e) => {
-    setValues({...values,appLogo:e.target.files[0]});
-  }
-
-
+    setValues({ ...values, appLogo: e.target.files[0] });
+  };
 
   //validation
   const validate = (values) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    const telregex=/^[0-9]{10}$/;
+    const telregex = /^[0-9]{10}$/;
 
     if (!values.name) {
       errors.name = "Name is required!";
@@ -90,9 +87,9 @@ const NewSubscription = () => {
     }
 
     if (!values.email) {
-        errors.email = "Email is required!";
+      errors.email = "Email is required!";
     } else if (!regex.test(values.email)) {
-        errors.email = "This is not a valid email format!";
+      errors.email = "This is not a valid email format!";
     }
 
     if (!telregex.test(values.contactNo)) {
@@ -102,15 +99,13 @@ const NewSubscription = () => {
     return errors;
   };
 
-
   //submititng form
   const handleSubmit = (e) => {
     e.preventDefault();
-   
+
     setFormErrors(validate(values));
     setIsSubmit(true);
   };
-
 
   //Changing upon errors
   useEffect(() => {
@@ -121,30 +116,32 @@ const NewSubscription = () => {
     }
   }, [FormErrors]);
 
-
   //Add subscription
   const AddSub = async () => {
     console.log("button");
-    await axios
-      .post("http://localhost:3001/subscription/create", values,{   
-        headers: { "Content-Type": "multipart/form-data" } 
+    try {
+      await axios
+        .post("http://localhost:3001/subscription/create", values, {
+          headers: { "content-type": "multipart/form-data" },
         })
-      .then(() => {
-        console.log("success");
-        swal({
-          text: "Subscription added successfully",
-          icon: "success",
-          timer: 2000,
-          buttons: false,
+        .then(() => {
+          console.log("success");
+          swal({
+            text: "Subscription added successfully",
+            icon: "success",
+            timer: 2000,
+            buttons: false,
+          });
+          history(-1);
         });
-        history(-1);
-      });
+    } catch (error) {
+      console.log("duplicate");
+      
+    }
   };
 
-
   //disabling button
-  const enable =
-    values.name && values.type && values.owner && values.email;
+  const enable = values.name && values.type && values.owner && values.email;
 
   return (
     <>
@@ -156,8 +153,8 @@ const NewSubscription = () => {
             <img
               src={
                 values.appLogo
-                      ? URL.createObjectURL(values.appLogo)
-                      : "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
+                  ? URL.createObjectURL(values.appLogo)
+                  : "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
               }
               alt="profile"
               className="userImg"
@@ -194,7 +191,7 @@ const NewSubscription = () => {
                     error={FormErrors.type}
                     helperText={FormErrors.type}
                   >
-                     <FormControlLabel
+                    <FormControlLabel
                       value="Platinum"
                       control={<Radio color="success" />}
                       label="Platinum ($100)"
@@ -214,7 +211,6 @@ const NewSubscription = () => {
                   </RadioGroup>
                 </Grid>
 
-
                 <Grid item xs={6}>
                   <FormControl style={{ paddingBottom: "15px" }}>
                     <FormLabel
@@ -227,14 +223,15 @@ const NewSubscription = () => {
                     <Select
                       style={{ height: "35px", textAlign: "center" }}
                       name="category"
+                      id="demo-simple-select"
                       value={values.category}
                       onChange={handleChange}
                     >
-                      <MenuItem value="Restuarant">Restuarant</MenuItem>
-                      <MenuItem value="Hotel">Hotel</MenuItem>
-                      <MenuItem value="Resort">Resort</MenuItem>
-                      <MenuItem value="Villa">Villa</MenuItem>
-                      <MenuItem value="Other">Other</MenuItem>
+                      <MenuItem value="Restuarant"> Restuarant </MenuItem>
+                      <MenuItem value="Hotel"> Hotel </MenuItem>
+                      <MenuItem value="Resort"> Resort </MenuItem>
+                      <MenuItem value="Villa"> Villa </MenuItem>
+                      <MenuItem value="Other"> Other </MenuItem>
                     </Select>
                   </FormControl>
 
@@ -271,7 +268,11 @@ const NewSubscription = () => {
                 Short Description about the subscription
               </FormLabel>
               <TextField
-                style={{ paddingBottom: "30px",paddingTop:'20px',width:'90%'}}
+                style={{
+                  paddingBottom: "30px",
+                  paddingTop: "20px",
+                  width: "90%",
+                }}
                 variant="outlined"
                 multiline
                 name="description"
@@ -342,9 +343,7 @@ const NewSubscription = () => {
 
                   <div className="formTitle">Social Media</div>
 
-                  <FormLabel className="label">
-                    Website
-                  </FormLabel>
+                  <FormLabel className="label">Website</FormLabel>
                   <TextField
                     style={{ paddingBottom: "30px" }}
                     name="WebsiteURL"
@@ -354,9 +353,7 @@ const NewSubscription = () => {
                     helperText={FormErrors.WebsiteURL}
                   />
 
-                  <FormLabel  className="label">
-                    LinkedIn
-                  </FormLabel>
+                  <FormLabel className="label">LinkedIn</FormLabel>
                   <TextField
                     style={{ paddingBottom: "30px" }}
                     name="LinkedIn"
@@ -366,9 +363,7 @@ const NewSubscription = () => {
                     helperText={FormErrors.LinkedIn}
                   />
 
-                  <FormLabel className="label">
-                    FaceBook
-                  </FormLabel>
+                  <FormLabel className="label">FaceBook</FormLabel>
                   <TextField
                     style={{ paddingBottom: "30px" }}
                     name="facebook"
@@ -378,9 +373,7 @@ const NewSubscription = () => {
                     helperText={FormErrors.facebook}
                   />
 
-                  <FormLabel  className="label">
-                    Instagram
-                  </FormLabel>
+                  <FormLabel className="label">Instagram</FormLabel>
                   <TextField
                     style={{ paddingBottom: "30px" }}
                     name="Instagram"
@@ -415,8 +408,6 @@ const NewSubscription = () => {
                 </span>
               </div>
             </form>
-
-            
           </div>
         </div>
       </div>

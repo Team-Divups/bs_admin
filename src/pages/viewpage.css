@@ -7,8 +7,9 @@
 
 .profileimg{
     border-radius: 50%;
-    height: 100px;
-    width: 100px;
+    height: 110px;
+    width: 150px;
+    outline: 1px solid #ECECEC;
 }
 
 .category{
@@ -87,7 +88,3 @@
     margin-top: 8px;
 }
 
-.logoname{
-    text-align: center;
-    margin-bottom: 10px;
-}

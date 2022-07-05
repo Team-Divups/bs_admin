@@ -13,6 +13,7 @@ import {
   Rating,
 } from "@mui/material";
 
+import DeleteIcon from "@mui/icons-material/Delete";
 import Header from "../../components/Header";
 import site from "../../Assets/site.jpg";
 import sitesm from "../../Assets/site.png";
@@ -27,6 +28,8 @@ import {
   LinkedIn,
 } from "@mui/icons-material";
 import { GridListTile, GridList } from "@material-ui/core";
+
+import swal from 'sweetalert';
 
 const ViewSubscription = () => {
   const { subid } = useParams();
@@ -72,6 +75,45 @@ const ViewSubscription = () => {
         console.log(rate.rate);
       });
   }, [subid]);
+
+
+  // Delete one subscription
+  const DeleteSite = (id) => {
+    swal({
+      text: "Are you sure you want to delete?",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        axios
+          .put(`http://localhost:3001/subscription/deletesite`, {
+            visibility: 0,
+            siteid: id,
+          })
+          .then((response) => {
+            swal({
+              title: "Done !",
+              text: "Site is deleted",
+              icon: "success",
+              timer: 2000,
+              button: false,
+            });
+            setSiteData(
+              siteData.filter((val) => {
+                return val.siteid !== id;
+              })
+            );
+          });
+      } else {
+        swal({
+          text: "Site details are restored !",
+          timer: 2000,
+          buttons: false,
+        });
+      }
+    });
+  };
+
 
   return (
     <>
@@ -153,7 +195,7 @@ const ViewSubscription = () => {
               <Grid item xs={7}>
                 <Box className="content">
                   <Typography fontFamily="Asap">
-                    <b style={{ paddingRight: "220px" }}>
+                    <b style={{ paddingRight: "45%" }}>
                       Subscription Information
                     </b>
                     <Link to={`/subscriptions/edit/${subData.id}`}>
@@ -308,9 +350,17 @@ const ViewSubscription = () => {
                           />
 
                           <CardContent>
-                            <Typography fontFamily="Mulish">
-                              <b>{sdata.sitename}</b>
-                            </Typography>
+                            <Grid container spacing={2}>
+                              <Grid item xs={10}>
+                                <Typography fontFamily="Mulish">
+                                  <b>{sdata.sitename}</b>
+                                </Typography>
+                              </Grid>
+
+                              <Grid item xs={2}>
+                                <DeleteIcon sx={{ fontSize: 15 }} onClick={()=>DeleteSite(sdata.siteid)} />
+                              </Grid>
+                            </Grid>
 
                             <div className="siteinfo">
                               {sdata.sitedescription}

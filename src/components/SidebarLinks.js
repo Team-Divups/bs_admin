@@ -26,6 +26,7 @@ export const links = [
         {
           name: 'subscriptions',
           icon: <SubscriptionsOutlined/>
+
         },
         {
           name: 'Billing',
