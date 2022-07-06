@@ -11,6 +11,8 @@ export { default as ViewSubscription } from './Subscriptions/ViewSubscription';
 export { default as NewSubscription } from './Subscriptions/NewSubscription';
 export { default as EditSubscription } from './Subscriptions/EditSubscription';
 export { default as DeletedSubscriptions } from './Subscriptions/DeletedSubscriptions';
+export { default as PaymentSubscription } from './Subscriptions/PaymentSubscription';
+export { default as Mails } from './Subscriptions/Mails';
 
 //users module
 export { default as ListUser } from './Admins/ListUser';
@@ -21,5 +23,12 @@ export { default as Profile} from './Admins/Profile';
 
 //roles module
 export { default as ListRoles } from './Roles/ListRoles';
+export { default as AddRole } from './Roles/AddRole';
 export { default as EditRoles } from './Roles/EditRoles';
+
+//notifications module
+export { default as ListNotification } from './Notifications/ListNotification';
+export { default as ViewNotification } from './Notifications/ViewNotification';
+export { default as EditNotification } from './Notifications/EditNotification';
+
 

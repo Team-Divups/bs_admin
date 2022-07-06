@@ -13,6 +13,7 @@ import {
   EditSubscription,
   NewSubscription,
   DeletedSubscriptions,
+  PaymentSubscription,
   ListUser,
   NewUser,
   ViewUser,
@@ -20,13 +21,15 @@ import {
   ListRoles,
   EditRoles,
   Profile,
+  ListNotification,
+  ViewNotification,
+  EditNotification,
+  Mails,
 } from './pages';
 
 import './App.css';
 
-import ListNotification from './pages/Notifications/ListNotification';
-import ViewNotification from './pages/Notifications/ViewNotification';
-import EditNotification from './pages/Notifications/EditNotification';
+
 
 import AddRole from './pages/Roles/AddRole';
 
@@ -102,19 +105,15 @@ const App = () => {
                   <Route path=":subid" element={<ViewSubscription />} />
                   <Route path="edit/:subid" element={<EditSubscription />} />
                   <Route path="bin" element={<DeletedSubscriptions />} />
+                  <Route path="payment/:subid" element={<PaymentSubscription/>}/>
+                  <Route path="mails/:subid" element={<Mails/>}/>
                 </Route>
 
                 {/* Notification */}
                 <Route path="/notifications">
-                  <Route index element={<ListNotification />} />
-                  <Route
-                    path="view/:idRequest"
-                    element={<ViewNotification />}
-                  />
-                  <Route
-                    path="edit/:idRequest"
-                    element={<EditNotification />}
-                  />
+                  <Route index element={<ListNotification/>}/>
+                  <Route path="view/:idRequest" element={<ViewNotification/>}/>
+                  <Route path ="edit/:idRequest" element={<EditNotification/>}/>
                 </Route>
 
                 {/* apps  */}
