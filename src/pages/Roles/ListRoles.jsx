@@ -8,7 +8,6 @@ import { GridListTile, GridList } from '@material-ui/core';
 import { Card, CardContent, Typography, Grid, Button } from '@mui/material';
 import {
   AddCircleRounded,
-  DeleteOutlineSharp,
   Edit,
 } from '@mui/icons-material';
 
@@ -28,7 +27,7 @@ const ListRoles = () => {
     });
   }, []);
 
-  //Delete all roles
+  /*Delete all roles
   const DeleteAll = (e) => {
     e.preventDefault();
 
@@ -55,7 +54,7 @@ const ListRoles = () => {
         });
       }
     });
-  };
+  };*/
 
   return (
     <>

@@ -37,7 +37,7 @@ const ViewSubscription = () => {
   const [subData, setSubData] = useState([]);
   const [subUser, setSubUser] = useState([]);
   const [siteData, setSiteData] = useState([]);
-  const [rate, setRate] = useState(0);
+  //const [rate, setRate] = useState(0);
 
   //subscription info
   useEffect(() => {
@@ -66,15 +66,16 @@ const ViewSubscription = () => {
       });
   }, [subid]);
 
-  //subscription rating
+  /*subscription rating
   useEffect(() => {
     axios
       .get(`http://localhost:3001/subscription/ratings/${subid}`)
       .then((response) => {
-        setRate({ ...response.data[0] });
+        setRate({...response.data[0]});
+        console.log(rate);
         console.log(rate.rate);
       });
-  }, [subid]);
+  }, []);*/
 
 
   // Delete one subscription
@@ -156,7 +157,8 @@ const ViewSubscription = () => {
               </Grid>
 
               <Grid item xs={7}>
-                <Rating value={rate.rate} readOnly size="large" />
+              <Rating value={3.5} readOnly size="large" precision={0.5} />
+             
               </Grid>
 
               <Grid item xs={2}>
