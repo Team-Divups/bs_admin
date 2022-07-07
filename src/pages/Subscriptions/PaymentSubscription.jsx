@@ -209,16 +209,16 @@ const PaymentSubscription = () => {
                           </Button>
                         )}
                       </div>
-                      <span
-                        style={{ paddingLeft: "90px", paddingRight: "25px" }}
+                      {/* <span
+                        style={{ paddingLeft: "150px", paddingRight: "25px" }}
                       >
                         <Button variant="contained" color="secondary">
                           Send Notifications
                         </Button>
-                      </span>
-                      <span style={{ paddingRight: "25px" }}>
+                      </span> */}
+                      <span style={{ paddingLeft: "55%", paddingRight: "25px" }}>
                         <Button
-                          disabled={!(val.delay > 0 && val.sub_delay<=10)}
+                          disabled={!(val.delay > 0 && val.sub_delay>=10)}
                           variant="contained"
                           color="info"
                           endIcon={<AcUnit/>}
@@ -235,9 +235,10 @@ const PaymentSubscription = () => {
                           endIcon={<DeleteOutlineSharp/>}
                           onClick={() => Delete(subData.id)}
                         >
-                          Deactivate
+                          Delete
                         </Button>
                       </span>
+                      
                     </CardActionArea>
                   </Card>
                 </Grid>

@@ -9,13 +9,16 @@ import {
   RadioGroup,
   TextField,
 } from "@material-ui/core";
+
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 import { Header } from "../../components";
 import "../styles.css";
 
 import { MenuItem, Select, Divider } from "@mui/material";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
+import {Payment} from "@mui/icons-material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -192,7 +195,12 @@ const EditSubscription = () => {
 
                   <FormLabel required="true" className="label">
                     Subscription Payment
+                    <Link to={`/subscriptions/payment/${subid}`}>
+                    <Payment sx={{ fontSize: 10 }}/>
+                    </Link>
+                   
                   </FormLabel>
+
                   <RadioGroup
                     style={{ paddingBottom: "15px" }}
                     name="type"
