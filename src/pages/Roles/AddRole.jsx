@@ -1,25 +1,17 @@
 import React from 'react';
 import Header from '../../components/Header';
-import Editor from '../Editor';
 
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-import {
-  Button,
-  FormControlLabel,
-  FormLabel,
-  Grid,
-  Radio,
-  RadioGroup,
-  TextField,
-} from '@material-ui/core';
+import { Button, FormLabel, Grid, TextField } from '@material-ui/core';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
+
 import DateFnsUtils from '@date-io/date-fns';
 
 import swal from 'sweetalert';
