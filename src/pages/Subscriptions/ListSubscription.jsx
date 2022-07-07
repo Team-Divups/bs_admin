@@ -16,7 +16,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import {
   //AcUnit,
   AddCircleRounded,
-  DeleteOutlineSharp,
+  //DeleteOutlineSharp,
   DeleteSweepRounded,
   ReceiptRounded,
 } from "@mui/icons-material";
@@ -122,7 +122,7 @@ const ListSubscription = () => {
     });
   };*/
 
-  //Delete all subscriptions
+  /*Delete all subscriptions
   const DeleteAll = (e) => {
     e.preventDefault();
 
@@ -159,7 +159,7 @@ const ListSubscription = () => {
         });
       }
     });
-  };
+  };*/
 
   // action columns
   const actionColumn = [
@@ -222,6 +222,7 @@ const ListSubscription = () => {
               onChange={handleChange}
               value={searchdata}
               fullWidth
+              style={{height:'25px'}}
               size="small"
             />
           </Grid>
@@ -229,12 +230,12 @@ const ListSubscription = () => {
         <br />
 
         <Grid container spacing={2}>
-          <Grid item xs={7}>
+          <Grid item xs={8}>
             <p></p>
           </Grid>
 
-          <Grid item xs={5}>
-            <span style={{ paddingLeft: "100px" }}>
+          <Grid item xs={4}>
+            <span style={{ paddingLeft: "150px",paddingRight: "25px" }}>
               <Link to="/subscriptions/bin">
                 <Button
                   size="small"
@@ -246,7 +247,8 @@ const ListSubscription = () => {
                 </Button>
               </Link>
             </span>
-            <span style={{ paddingLeft: "40px", paddingRight: "25px" }}>
+
+            {/*<span style={{ paddingLeft: "40px", paddingRight: "25px" }}>
               <Button
                 style={{ backgroundColor: "red" }}
                 size="small"
@@ -256,7 +258,7 @@ const ListSubscription = () => {
               >
                 Delete All
               </Button>
-            </span>
+            </span>*/}
 
             <span>
               <Link to="/subscriptions/new">

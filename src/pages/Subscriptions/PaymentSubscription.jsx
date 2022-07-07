@@ -68,6 +68,7 @@ const PaymentSubscription = () => {
         swal({
           text: "Subscription is not freezed !",
           timer: 2000,
+          icon: "info",
           buttons: false,
         });
       }
@@ -101,6 +102,7 @@ const PaymentSubscription = () => {
         swal({
           text: "Subscription details are restored !",
           timer: 2000,
+          icon: "info",
           buttons: false,
         });
       }
@@ -140,6 +142,13 @@ const PaymentSubscription = () => {
                           </span>
                           {subData.name}
                         </p>
+
+                        <p>
+                          <span style={{ color: "black" }}>
+                            <b>Subscription Payment Package : </b>{" "}
+                          </span>
+                          {subData.type}
+                        </p>
                         <p>
                           <span style={{ color: "black" }}>
                             <b>Subscription activated on : </b>{" "}
@@ -160,7 +169,7 @@ const PaymentSubscription = () => {
                     <CardActionArea
                       sx={{ marginBottom: "20px", marginTop: "-15px" }}
                     >
-                      <div style={{marginBottom:'20px'}}>
+                      <div style={{ marginBottom: "20px" }}>
                         {val.delay === 0 ? (
                           <Button
                             variant="contained"
@@ -177,7 +186,7 @@ const PaymentSubscription = () => {
                           >
                             send reminders
                           </Button>
-                        ) : val.delay >0 ? (
+                        ) : val.delay > 0 ? (
                           <Button
                             variant="contained"
                             style={{ backgroundColor: "#C06C84" }}
@@ -204,7 +213,7 @@ const PaymentSubscription = () => {
                       </span>
                       <span style={{ paddingRight: "25px" }}>
                         <Button
-                          disabled={!(val.delay > 0)}
+                          disabled={!(val.delay > 0 && val.sub_delay<=10)}
                           variant="contained"
                           color="info"
                           onClick={() => FreezeSub(subData.id)}

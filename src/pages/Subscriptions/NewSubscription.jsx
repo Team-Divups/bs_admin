@@ -113,8 +113,10 @@ const NewSubscription = () => {
       errors.email = "This is not a valid email format!";
     }
 
-    if (!telregex.test(values.contactNo)) {
-      errors.contactNo = "Contact Number is invalid";
+    if(!values.contactNo){
+      if (!telregex.test(values.contactNo)) {
+        errors.contactNo = "Contact Number is invalid";
+      }
     }
 
     return errors;
