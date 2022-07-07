@@ -6,11 +6,16 @@ import "../viewpage.css";
 import sitesm from "../../Assets/site.png";
 import { paymentsubColumns } from "./DataSource";
 
-import { useParams, Link } from "react-router-dom";
+import { useParams} from "react-router-dom";
 import axios from "axios";
 
 import { DataGrid } from "@mui/x-data-grid";
 import { Grid, Button, Card, CardContent, CardActionArea } from "@mui/material";
+
+import {
+  AcUnit,
+  DeleteOutlineSharp,
+} from "@mui/icons-material";
 
 import swal from "sweetalert";
 import Moment from "react-moment";
@@ -176,15 +181,15 @@ const PaymentSubscription = () => {
                             style={{ backgroundColor: "#6C5B7B" }}
                             fullWidth
                           >
-                            Deadline Passed
+                            Payment Due Date Passed
                           </Button>
-                        ) : val.delay === -5 ? (
+                        ) : val.delay === -10 ? (
                           <Button
                             variant="contained"
                             style={{ backgroundColor: "#C06C84" }}
                             fullWidth
                           >
-                            send reminders
+                            Send Reminders
                           </Button>
                         ) : val.delay > 0 ? (
                           <Button
@@ -192,7 +197,7 @@ const PaymentSubscription = () => {
                             style={{ backgroundColor: "#C06C84" }}
                             fullWidth
                           >
-                            Need to
+                            Freeze State
                           </Button>
                         ) : (
                           <Button
@@ -200,7 +205,7 @@ const PaymentSubscription = () => {
                             style={{ backgroundColor: "#F8B195" }}
                             fullWidth
                           >
-                            Upto date
+                            Payments Upto Date
                           </Button>
                         )}
                       </div>
@@ -216,6 +221,7 @@ const PaymentSubscription = () => {
                           disabled={!(val.delay > 0 && val.sub_delay<=10)}
                           variant="contained"
                           color="info"
+                          endIcon={<AcUnit/>}
                           onClick={() => FreezeSub(subData.id)}
                         >
                           Freeze
@@ -226,6 +232,7 @@ const PaymentSubscription = () => {
                         <Button
                           variant="contained"
                           color="warning"
+                          endIcon={<DeleteOutlineSharp/>}
                           onClick={() => Delete(subData.id)}
                         >
                           Deactivate
