@@ -38,15 +38,17 @@ const ListRoles = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        axios.delete('http://localhost:3001/role').then((response) => {
-          swal({
-            title: 'Done !',
-            text: 'All roles are deleted',
-            icon: 'success',
-            timer: 2000,
-            button: false,
+        axios
+          .delete('http://localhost:3001/role/delete/all')
+          .then((response) => {
+            swal({
+              title: 'Done !',
+              text: 'Roles are deleted except default roles',
+              icon: 'success',
+              timer: 2000,
+              button: false,
+            });
           });
-        });
       } else {
         swal({
           text: 'Roles details are restored !',
@@ -69,7 +71,7 @@ const ListRoles = () => {
 
           <Grid item xs={3}>
             <span style={{ paddingLeft: '30px', paddingRight: '20px' }}>
-              {/* <Button
+              <Button
                 style={{ backgroundColor: 'red' }}
                 size="small"
                 variant="contained"
@@ -77,7 +79,7 @@ const ListRoles = () => {
                 endIcon={<DeleteOutlineSharp />}
               >
                 Delete All
-              </Button> */}
+              </Button>
             </span>
 
             <span>
