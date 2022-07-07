@@ -14,10 +14,17 @@ const EditRoles = () => {
   const { idrole } = useParams();
   const history = useNavigate();
 
-  const [roleData, setRoleData] = useState([]);
+  const initialValues = {
+    roleName: '',
+    description: '',
+    created_at: new Date(),
+    idrole: idrole,
+  };
 
-  const [RoleName, setRoleName] = useState();
-  const [Description, setDescription] = useState();
+  const [roleData, setRoleData] = useState(initialValues);
+
+  // const [RoleName, setRoleName] = useState();
+  // const [Description, setDescription] = useState();
 
   //role info
   useEffect(() => {
@@ -26,32 +33,25 @@ const EditRoles = () => {
     });
   }, [idrole]);
 
-  // const handleChange = (e) => {
-  //   e.preventDeafult();
-  //   const { name, value } = e.target;
-  //   setRoleData({
-  //     ...roleData,
-  //     [name]: value,
-  //   });
-  // };
+  const handleChange = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    setRoleData({
+      ...roleData,
+      [name]: value,
+    });
+  };
 
   const EditRole = async (idrole) => {
-    await axios
-      .put('http://localhost:3001/role/edit', {
-        roleName: RoleName,
-        description: Description,
-        idrole: idrole,
-      })
-      .then(() => {
-        swal({
-          text: 'Role updated successfully',
-          icon: 'success',
-          timer: 6000,
-          buttons: false,
-        });
+    await axios.put('http://localhost:3001/role/edit', roleData).then(() => {
+      swal({
+        text: 'Role updated successfully',
+        icon: 'success',
+        timer: 6000,
+        buttons: false,
       });
-    setRoleName('');
-    setDescription('');
+    });
+    history(-1);
   };
 
   // const enable = RoleName && Description;
@@ -70,17 +70,16 @@ const EditRoles = () => {
               Role Name
             </FormLabel>
             <br />
+
             <TextField
               style={{ paddingBottom: '30px' }}
               variant="outlined"
               fullWidth
               name="roleName"
-              //defaultValue={roleData.roleName}
+              onChange={handleChange}
               value={roleData.roleName}
-              onChange={(e) => {
-                setRoleName(e.target.value);
-              }}
-            />{' '}
+            />
+
             <br />
             <FormLabel required="true" className="label">
               Role description and previleges
@@ -93,9 +92,7 @@ const EditRoles = () => {
               multiline={true}
               name="description"
               defaultValue={roleData.description}
-              onChange={(e) => {
-                setDescription(e.target.value);
-              }}
+              onChange={handleChange}
             />
             <FormLabel required="true" className="label">
               Users under this Role :

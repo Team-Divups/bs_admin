@@ -7,8 +7,6 @@ import { userColumns } from './DataSource';
 import swal from 'sweetalert';
 import axios from 'axios';
 
-//import { Button } from '@mui/material';
-//import { AddCircleRounded, DeleteOutlineSharp } from '@mui/icons-material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -23,7 +21,6 @@ const ListNotification = () => {
   }, []);
 
   const Delete = (idRequest) => {
-    //console.log(idRequest);
     swal({
       text: 'Are you sure you want to delete?',
       buttons: true,

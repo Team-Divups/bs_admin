@@ -8,27 +8,34 @@ import { Edit } from '@mui/icons-material';
 
 import { Button, Grid, FormControl } from '@material-ui/core';
 import { Card, CardContent, Typography, Box, Divider } from '@mui/material';
-//import { Select, MenuItem } from '@mui/material';
+
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-//import Radio from '@mui/material/Radio';
-//import RadioGroup from '@mui/material/RadioGroup';
-import FormGroup from '@material-ui/core/FormGroup';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Checkbox from '@material-ui/core/Checkbox';
 
 import swal from 'sweetalert';
 
 const EditNotification = () => {
-  const [data, setData] = useState([]);
-
-  const [status, setStatus] = useState();
-
-  const [sent, setSent] = useState(false);
-  const [text, setText] = useState('');
-
   const { idRequest } = useParams();
   const history = useNavigate();
+
+  const initialValues = {
+    category: '',
+    problem: '',
+    severity_level: '',
+    site_name: '',
+    date: new Date(),
+    status: '',
+    userId: '',
+    last_updated: new Date(),
+    idRequest: idRequest,
+  };
+  const [data, setData] = useState(initialValues);
+
+  // const [sent, setSent] = useState(false);
+  // const [text, setText] = useState('');
 
   useEffect(() => {
     axios
@@ -39,12 +46,9 @@ const EditNotification = () => {
   }, [idRequest]);
 
   //Edit Request
-  const EditRequest = async (idRequest) => {
+  const EditRequest = async () => {
     await axios
-      .put('http://localhost:3001/notification/edit', {
-        status: status,
-        idRequest: idRequest,
-      })
+      .put('http://localhost:3001/notification/edit', data)
       .then(() => {
         swal({
           text: 'Notification updated successfully',
@@ -53,17 +57,37 @@ const EditNotification = () => {
           buttons: false,
         });
       });
+    history(-1);
   };
 
-  const handleSend = async (e) => {
-    setSent(true);
-    try {
-      await axios.post('http://localhost:3001/send_mail', {
-        text: text,
-      });
-    } catch (error) {
-      console.error(error);
+  const handleChange = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
+
+  // const handleSend = async (e) => {
+  //   setSent(true);
+  //   try {
+  //     await axios.post('http://localhost:3001/send_mail', {
+  //       text: text,
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  const validate = (data) => {
+    const errors = {};
+
+    if (!data.status) {
+      errors.status = 'Status is required!';
     }
+
+    return errors;
   };
 
   return (
@@ -119,98 +143,72 @@ const EditNotification = () => {
                           <span style={{ color: 'black' }}>
                             <b>Severity_Level : </b>{' '}
                           </span>
-                          {data.severity_level}
                         </p>
+                        <FormControl>
+                          <RadioGroup
+                            //checked={selected}
+                            value={data.severity_level}
+                            style={{ paddingBottom: '20px' }}
+                            name="severity_level"
+                            required
+                            row
+                            onChange={handleChange}
+                          >
+                            <FormControlLabel
+                              style={{ paddingRight: '25px' }}
+                              value="minor"
+                              control={<Radio color="success" />}
+                              label="Minor"
+                            />
+                            <FormControlLabel
+                              style={{ paddingRight: '25px' }}
+                              value="major"
+                              control={<Radio color="success" />}
+                              label="Major"
+                            />
+                            <FormControlLabel
+                              value="critical"
+                              control={<Radio color="success" />}
+                              label="Critical"
+                            />
+                          </RadioGroup>
+                        </FormControl>
                         <p style={{ fontSize: '18px' }}>
                           <span style={{ color: 'black' }}>
-                            <b>Status : </b>{' '}
+                            <b>Status : </b>
                           </span>
-                          {/* <FormControl>
-                            <Select
-                              style={{
-                                paddingBottom: '20px',
-                                width: '220%',
-                                height: '35px',
-                              }}
-                              MenuProps={{
-                                anchorOrigin: {
-                                  vertical: 'bottom',
-                                  horizontal: 'left',
-                                },
-                                transformOrigin: {
-                                  vertical: 'top',
-                                  horizontal: 'left',
-                                },
-                                getContentAnchorEl: null,
-                              }}
-                              labelId="demo-simple-select-label"
-                              name="status"
-                              value={data.status}
-                              required
-                              onChange={(e) => {
-                                setStatus(e.target.value);
-                              }}
-                            >
-                              <MenuItem value="progress">Progress</MenuItem>
-                              <MenuItem value="completed">Completed</MenuItem>
-                            </Select>
-                          </FormControl> */}
-
-                          <FormControl required component="fieldset">
-                            <FormGroup>
-                              <FormControlLabel
-                                control={
-                                  <Checkbox
-                                    onChange={(e) => {
-                                      setStatus(e.target.value);
-                                    }}
-                                    value="progress"
-                                  />
-                                }
-                                label="Progress"
-                              />
-                              <FormControlLabel
-                                control={
-                                  <Checkbox
-                                    onChange={(e) => {
-                                      setStatus(e.target.value);
-                                    }}
-                                    value="completed"
-                                  />
-                                }
-                                label="Completed"
-                              />
-                            </FormGroup>
-                            <FormHelperText>Select one</FormHelperText>
-                          </FormControl>
+                          <RadioGroup
+                            value={data.status}
+                            style={{ paddingBottom: '20px' }}
+                            name="status"
+                            required
+                            row
+                            onChange={handleChange}
+                            error={validate.status}
+                            helperText={validate.status}
+                          >
+                            <FormControlLabel
+                              style={{ paddingRight: '25px' }}
+                              value="Not yet Started"
+                              control={<Radio color="success" />}
+                              label="Not Yet Started"
+                            />
+                            <FormControlLabel
+                              style={{ paddingRight: '25px' }}
+                              value="progress"
+                              control={<Radio color="success" />}
+                              label="Progress"
+                            />
+                            <FormControlLabel
+                              value="completed"
+                              control={<Radio color="success" />}
+                              label="Completed"
+                            />
+                          </RadioGroup>
                         </p>
                       </div>
                     </div>
                   </Box>
-
-                  {/* <FormControl>
-                    <FormLabel required="true" className="label">
-                      Status
-                    </FormLabel>
-                    <Select
-                      style={{
-                        paddingBottom: '20px',
-                        width: '220%',
-                        height: '35px',
-                      }}
-                      labelId="demo-simple-select-label"
-                      name="status"
-                      value={data.status}
-                      required
-                      onChange={(e) => {
-                        setStatus(e.target.value);
-                      }}
-                    >
-                      <MenuItem value="minor">Minor</MenuItem>
-                      <MenuItem value="major">Major</MenuItem>
-                      <MenuItem value="critical">Critical</MenuItem>
-                    </Select>
-                  </FormControl> */}
                 </Grid>
               </Grid>
             </CardContent>
@@ -241,7 +239,7 @@ const EditNotification = () => {
             </span>
           </div>
         </form>
-        {!sent ? (
+        {/* {!sent ? (
           <form onSubmit={handleSend}>
             <input
               type="text"
@@ -253,7 +251,7 @@ const EditNotification = () => {
           </form>
         ) : (
           <h1>Email Sent</h1>
-        )}
+        )} */}
       </div>
     </>
   );
