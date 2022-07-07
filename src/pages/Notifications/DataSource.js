@@ -51,7 +51,6 @@ export const NotifyColumns = [
               Critical
             </Button>
           )}
-          ,
         </div>
       );
     },
