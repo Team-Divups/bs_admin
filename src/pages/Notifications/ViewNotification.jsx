@@ -32,9 +32,10 @@ const ViewNotification = () => {
   //Request info
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/notification/view/${idRequest}`)
+      .get(`http://localhost:3001/notification/${idRequest}`)
       .then((response) => {
         setData({ ...response.data[0] });
+        console.log(response.data);
       });
   }, [idRequest]);
 
@@ -90,13 +91,13 @@ const ViewNotification = () => {
                         <span style={{ fontSize: '18px', color: 'black' }}>
                           <b>Problem Category : </b>{' '}
                         </span>
-                        {Data.category}
+                        {Data.ReqCategory}
                       </p>
                       <p style={{ fontSize: '18px' }}>
                         <span style={{ color: 'black' }}>
                           <b>Site Name : </b>{' '}
                         </span>
-                        {Data.site_name}
+                        {Data.sitename}
                       </p>
 
                       <p style={{ fontSize: '18px' }}>

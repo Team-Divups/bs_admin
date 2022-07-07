@@ -1,5 +1,5 @@
 import { FiEdit} from 'react-icons/fi';
-import { BsKanban} from 'react-icons/bs';
+//import { BsKanban} from 'react-icons/bs';
 import { Dashboard, Group, ManageAccounts, Notifications, Payment, SubscriptionsOutlined, SupervisedUserCircle } from '@mui/icons-material';
 
 export const links = [
@@ -39,10 +39,10 @@ export const links = [
     {
       title: 'Apps',
       links: [
-        {
+        /*{
           name: 'kanban',
           icon: <BsKanban />,
-        },
+        },*/
         {
           name: 'editor',
           icon: <FiEdit />,

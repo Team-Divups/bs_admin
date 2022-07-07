@@ -14,10 +14,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
 import {
-  AcUnit,
+  //AcUnit,
   AddCircleRounded,
   DeleteOutlineSharp,
   DeleteSweepRounded,
+  ReceiptRounded,
 } from "@mui/icons-material";
 
 const ListSubscription = () => {
@@ -83,7 +84,7 @@ const ListSubscription = () => {
     });
   };
 
-  // freeze one subscription
+  /*freeze one subscription
   const FreezeSub = (id) => {
     swal({
       text: "Are you sure you want to freeze?",
@@ -119,7 +120,7 @@ const ListSubscription = () => {
         });
       }
     });
-  };
+  };*/
 
   //Delete all subscriptions
   const DeleteAll = (e) => {
@@ -175,6 +176,17 @@ const ListSubscription = () => {
               </div>
             </Link>
 
+            <Link to={`/subscriptions/payment/${params.row.id}`}>
+              <div>
+                {/*<AcUnit
+                fontSize="small"
+                color="info"
+                onClick={() => FreezeSub(params.row.id)}
+              />*/}
+                <ReceiptRounded fontSize="small" color="info" />
+              </div>
+            </Link>
+
             <Link to={`/subscriptions/edit/${params.row.id}`}>
               <div className="editButton">
                 <EditIcon fontSize="small" />
@@ -185,14 +197,6 @@ const ListSubscription = () => {
               <DeleteIcon
                 fontSize="small"
                 onClick={() => Delete(params.row.id)}
-              />
-            </div>
-
-            <div>
-              <AcUnit
-                fontSize="small"
-                color="info"
-                onClick={() => FreezeSub(params.row.id)}
               />
             </div>
           </div>
@@ -221,7 +225,8 @@ const ListSubscription = () => {
               size="small"
             />
           </Grid>
-        </Grid><br/>
+        </Grid>
+        <br />
 
         <Grid container spacing={2}>
           <Grid item xs={7}>

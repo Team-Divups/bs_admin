@@ -1,9 +1,10 @@
 import { Button } from "@mui/material";
 import Moment from "react-moment";
-import sitesm from "../../Assets/site.png";
+//import sitesm from "../../Assets/site.png";
 
 import "../viewpage.css";
 
+//subscription table
 export const subColumns = [
   // { field: 'subId', headerName: 'SubId', width: 130 },
 
@@ -14,8 +15,9 @@ export const subColumns = [
     renderCell: (params) => {
       return (
         <div>
-          <b>{params.row.name}</b><br/>
-          <p style={{lineHeight:'2'}}>
+          <b>{params.row.name}</b>
+          <br />
+          <p style={{ lineHeight: "2" }}>
             Joined on :
             <Moment format="YYYY/MM/DD" style={{ color: "gray" }}>
               {params.row.created_at}
@@ -123,8 +125,8 @@ export const subColumns = [
     renderCell: (params) => {
       return (
         <div>
-          <b style={{lineHeight:'2.6'}}>{params.row.owner}</b>
-          <p style={{color:'gray'}}>{params.row.email}</p>
+          <b style={{ lineHeight: "2.6" }}>{params.row.owner}</b>
+          <p style={{ color: "gray" }}>{params.row.email}</p>
         </div>
       );
     },
@@ -137,6 +139,7 @@ export const subColumns = [
   },
 ];
 
+//deleted subscription table
 export const deletedsubColumns = [
   // { field: 'subId', headerName: 'SubId', width: 130 },
 
@@ -147,8 +150,8 @@ export const deletedsubColumns = [
     renderCell: (params) => {
       return (
         <div>
-          <b style={{lineHeight:'1.8'}}>{params.row.name}</b>
-          <p style={{color:'gray'}}>{params.row.category}</p>
+          <b style={{ lineHeight: "1.8" }}>{params.row.name}</b>
+          <p style={{ color: "gray" }}>{params.row.category}</p>
         </div>
       );
     },
@@ -161,9 +164,9 @@ export const deletedsubColumns = [
     renderCell: (params) => {
       return (
         <div>
-          <p style={{lineHeight:'2.4'}}>
+          <p style={{ lineHeight: "2.4" }}>
             <b>Created on :</b>
-            <Moment format="YYYY/MM/DD" style={{ color: "gray"}}>
+            <Moment format="YYYY/MM/DD" style={{ color: "gray" }}>
               {params.row.created_at}
             </Moment>
           </p>
@@ -185,7 +188,7 @@ export const deletedsubColumns = [
     renderCell: (params) => {
       return (
         <div>
-          <p style={{lineHeight:'1.8'}}>
+          <p style={{ lineHeight: "1.8" }}>
             <b>{params.row.owner}</b>
           </p>
           <p
@@ -271,4 +274,66 @@ export const deletedsubColumns = [
       );
     },
   },
+];
+
+//payment subscription
+export const paymentsubColumns = [
+
+ 
+
+  {
+    field: "start_date",
+    headerName: "Period started on",
+    width: 300,
+    renderCell: (params) => {
+      return (
+        <div>
+          <Moment format="YYYY/MM/DD">{params.row.start_date}</Moment>
+        </div>
+      );
+    },
+  },
+  
+  {
+    field: "end_date",
+    headerName: "Period Ended on",
+    width: 300,
+    renderCell: (params) => {
+      return (
+        <div>
+          <Moment format="YYYY/MM/DD">{params.row.end_date}</Moment>
+        </div>
+      );
+    },
+  },
+
+
+  {
+    field: "date",
+    headerName: "Payment Done on",
+    width: 300,
+    renderCell: (params) => {
+      return (
+        <div>
+          <Moment format="YYYY/MM/DD">{params.row.date}</Moment>
+        </div>
+      );
+    },
+  },
+
+
+  {
+    field: "next_bill_date",
+    headerName: "Next Payment Due date",
+    width: 300,
+    renderCell: (params) => {
+      return (
+        <div>
+          <Moment format="YYYY/MM/DD">{params.row.next_bill_date}</Moment>
+        </div>
+      );
+    },
+  },
+
+
 ];

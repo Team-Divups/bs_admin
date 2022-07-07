@@ -44,12 +44,18 @@ const NewSubscription = () => {
   const [FormErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [subdata, setSubData] = useState([]);
-
+  const [lastId,setLastId] = useState([]);
 
   //to get data when the application loads
   useEffect(() => {
     axios.get("http://localhost:3001/subscription").then((response) => {
       setSubData(response.data);
+      console.log(subdata);
+    });
+
+    axios.get("http://localhost:3001/bin/lastSub").then((response) => {
+      setLastId({...response.data[0]});
+      console.log(lastId.last_id);
     });
   }, []);
 
@@ -83,9 +89,9 @@ const NewSubscription = () => {
       errors.name = "Name cannot exceed more than 30 characters";
     }
 
-    for (let i = 0; i <subdata.length; i++) {
+    for (let i = 0; i < subdata.length; i++) {
       if (subdata[i].name === values.name) {
-        errors.name='This Subscription name already exists';
+        errors.name = "This Subscription name already exists";
       }
     }
 
@@ -149,9 +155,11 @@ const NewSubscription = () => {
           });
           history(-1);
         });
+
+        await axios
+        .post("http://localhost:3001/billing/create", {idSub:lastId.last_id+1})
     } catch (error) {
       console.log("duplicate");
-      
     }
   };
 
@@ -161,7 +169,8 @@ const NewSubscription = () => {
   return (
     <>
       <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-        <Header title="Add new Subscription" />
+        <Header category="Pages" title="Subscriptions" />
+        <span className="dataTableTitle">Add new Subscription</span>
 
         <div className="bottom">
           <div className="left">

@@ -9,11 +9,15 @@ import { deletedsubColumns } from "./DataSource";
 import "../styles.css";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
-
-import swal from "sweetalert";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { Restore } from "@mui/icons-material";
 
+
+import swal from "sweetalert";
+
+
 const DeletedSubscriptions = () => {
+
   const [subdata, setSubData] = useState([]);
   const [searchdata, setSearchdata] = useState("");
 
@@ -77,6 +81,43 @@ const DeletedSubscriptions = () => {
     });
   };
 
+   // Delete one subscription
+   const Delete = (id) => {
+    swal({
+      text: "Are you sure you want to delete?",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        axios
+          .put(`http://localhost:3001/bin/fulldelete`, {
+            id: id,
+          })
+          .then((response) => {
+            swal({
+              title: "Done !",
+              text: "Subscription is deleted",
+              icon: "success",
+              timer: 2000,
+              button: false,
+            });
+            setSubData(
+              subdata.filter((val) => {
+                return val.id !== id;
+              })
+            );
+          });
+      } else {
+        swal({
+          text: "Subscription details are not delted !",
+          timer: 2000,
+          buttons: false,
+        });
+      }
+    });
+  };
+
+
   // action columns
   const actionColumn = [
     {
@@ -99,6 +140,14 @@ const DeletedSubscriptions = () => {
                 onClick={() => Restorage(params.row.id)}
               />
             </div>
+
+            <div className="deleteButton">
+              <DeleteIcon
+                fontSize="small"
+                onClick={() => Delete(params.row.id)}
+              />
+            </div>
+
           </div>
         );
       },

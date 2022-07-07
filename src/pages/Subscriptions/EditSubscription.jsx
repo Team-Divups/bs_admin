@@ -47,7 +47,6 @@ const EditSubscription = () => {
   const [isSubmit, setIsSubmit] = useState(false);
   const [subdata, setSubData] = useState([]);
 
-
   //to get data when the application loads
   useEffect(() => {
     axios.get("http://localhost:3001/subscription").then((response) => {
@@ -75,9 +74,8 @@ const EditSubscription = () => {
 
   //handle image
   const handleImage = (e) => {
-    setValues({...values,appLogo:e.target.files[0]});
-  }
-
+    setValues({ ...values, appLogo: e.target.files[0] });
+  };
 
   //validation
   const validate = (values) => {
@@ -92,9 +90,9 @@ const EditSubscription = () => {
       errors.name = "Name cannot exceed more than 30 characters";
     }
 
-    for (let i = 0; i <subdata.length; i++) {
+    for (let i = 0; i < subdata.length; i++) {
       if (subdata[i].name === values.name) {
-        errors.name='This Subscription name already exists';
+        errors.name = "This Subscription name already exists";
       }
     }
 
@@ -159,7 +157,8 @@ const EditSubscription = () => {
   return (
     <>
       <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-        <Header title="Edit Subscription" />
+        <Header category="Pages" title="Subscriptions" />
+        <span className="dataTableTitle">Edit Subscription</span>
 
         <div className="bottom">
           <div className="left">

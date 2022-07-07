@@ -29,7 +29,7 @@ import {
 } from "@mui/icons-material";
 import { GridListTile, GridList } from "@material-ui/core";
 
-import swal from 'sweetalert';
+import swal from "sweetalert";
 
 const ViewSubscription = () => {
   const { subid } = useParams();
@@ -77,7 +77,6 @@ const ViewSubscription = () => {
       });
   }, []);*/
 
-
   // Delete one subscription
   const DeleteSite = (id) => {
     swal({
@@ -114,7 +113,6 @@ const ViewSubscription = () => {
       }
     });
   };
-
 
   return (
     <>
@@ -157,30 +155,18 @@ const ViewSubscription = () => {
               </Grid>
 
               <Grid item xs={7}>
-              <Rating value={3.5} readOnly size="large" precision={0.5} />
-             
+                <Rating value={3.5} readOnly size="large" precision={0.5} />
               </Grid>
 
               <Grid item xs={2}>
                 {subData.type === "Gold" ? (
                   <div className="modebtn">Gold</div>
                 ) : subData.type === "Platinum" ? (
-                  <div>
-                    <span style={{ paddingRight: "10px" }}>
-                      <span
-                        className="modebtn"
-                        style={{ backgroundColor: "#E5E4E2" }}
-                      >
-                        Platinum
-                      </span>
-                    </span>
-
-                    <span
-                      style={{ backgroundColor: "#84fae4" }}
-                      className="modebtn"
-                    >
-                      Contract
-                    </span>
+                  <div
+                    className="modebtn"
+                    style={{ backgroundColor: "#E5E4E2" }}
+                  >
+                    Platinum
                   </div>
                 ) : (
                   <div
@@ -360,7 +346,10 @@ const ViewSubscription = () => {
                               </Grid>
 
                               <Grid item xs={2}>
-                                <DeleteIcon sx={{ fontSize: 15 }} onClick={()=>DeleteSite(sdata.siteid)} />
+                                <DeleteIcon
+                                  sx={{ fontSize: 15 }}
+                                  onClick={() => DeleteSite(sdata.siteid)}
+                                />
                               </Grid>
                             </Grid>
 

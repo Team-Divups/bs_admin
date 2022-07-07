@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Link } from 'react-router-dom';
 import { Grid } from '@mui/material';
+
 import Header from '../../components/Header';
-import { userColumns } from './DataSource';
+import { NotifyColumns } from './DataSource';
+
 import swal from 'sweetalert';
 import axios from 'axios';
 
@@ -17,7 +19,7 @@ const ListNotification = () => {
   const [requestdata, setRequestData] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3001/notification/all').then((response) => {
+    axios.get('http://localhost:3001/notification').then((response) => {
       setRequestData(response.data);
     });
   }, []);
@@ -90,72 +92,17 @@ const ListNotification = () => {
     },
   ];
 
-  //   const DeleteAll = (e) => {
-  //     e.preventDefault();
-
-  //     swal({
-  //       text: 'Are you sure you want to delete?',
-  //       buttons: true,
-  //       dangerMode: true,
-  //     }).then((willDelete) => {
-  //       if (willDelete) {
-  //         axios.delete('http://localhost:3001/help').then((response) => {
-  //           swal({
-  //             title: 'Done !',
-  //             text: 'All help requests are deleted',
-  //             icon: 'success',
-  //             timer: 2000,
-  //             button: false,
-  //           });
-  //         });
-  //       } else {
-  //         swal({
-  //           text: 'Subscription details are restored !',
-  //           buttons: false,
-  //           timer: 2000,
-  //         });
-  //       }
-  //     });
-  //   };
+  
 
   return (
     <>
       <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
         <Header category="Page" title="Notification" />
-        <Grid container spacing={2}>
-          <Grid item xs={9}>
-            <span className="dataTableTitle">Overview of Notification</span>
-          </Grid>
-
-          <Grid item xs={3}>
-            <span style={{ paddingLeft: '30px', paddingRight: '20px' }}>
-              {/* <Button
-                style={{ backgroundColor: 'red' }}
-                size="small"
-                variant="contained"
-                onClick={DeleteAll}
-                endIcon={<DeleteOutlineSharp />}
-              >
-                Delete All
-              </Button> */}
-            </span>
-
-            {/* <span>
-              <Link to="/help/new">
-                <Button
-                  size="small"
-                  variant="contained"
-                  endIcon={<AddCircleRounded />}
-                >
-                  Add
-                </Button>
-              </Link>
-            </span> */}
-          </Grid>
-        </Grid>
+       
+            <span className="dataTableTitle">Overview of Notifications</span>
 
         <DataGrid
-          columns={userColumns.concat(actionColumn)}
+          columns={NotifyColumns.concat(actionColumn)}
           rows={requestdata}
           getRowId={(row) => row.idRequest}
           pageSize={10}

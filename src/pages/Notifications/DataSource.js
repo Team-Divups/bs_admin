@@ -1,13 +1,14 @@
 import { Button } from '@mui/material';
-//import user from '../../Assets/user.png';
-import Moment from 'react-moment';
+//import Moment from 'react-moment';
 
-export const userColumns = [
-  { field: 'idRequest', headerName: 'Notification ID', width: 100 },
-  //{ field: 'site_name', headerName: 'Site Name', width: 100 },
+export const NotifyColumns = [
+  //{ field: 'idRequest', headerName: 'Notification ID', width: 100 },
+  { field: 'name', headerName: 'Subscription', width: 200 },
+
+  { field: 'sitename', headerName: 'Site Name', width: 180 },
 
   {
-    field: 'category',
+    field: 'ReqCategory',
     headerName: 'Category',
     width: 200,
   },
@@ -15,13 +16,13 @@ export const userColumns = [
   {
     field: 'problem',
     headerName: 'Problem',
-    width: 300,
+    width: 360,
   },
 
   {
     field: 'severity_level',
     headerName: 'Severity Level',
-    width: 180,
+    width: 160,
     renderCell: (params) => {
       return (
         <div>
@@ -55,7 +56,8 @@ export const userColumns = [
       );
     },
   },
-  {
+
+  /*{
     field: 'date',
     headerName: 'Created Date',
     width: 180,
@@ -70,5 +72,5 @@ export const userColumns = [
         </div>
       );
     },
-  },
+  },*/
 ];
